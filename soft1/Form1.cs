@@ -40,7 +40,7 @@ namespace soft1
             gMapControl1.Bearing = 0;
             gMapControl1.ShowCenter = false;
             gMapControl1.MapProvider = GMapProviders.GoogleMap;
-            GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
+            //GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             gMapControl1.DragButton = MouseButtons.Left;
             gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
             gMapControl1.MaxZoom = 20;
@@ -161,6 +161,9 @@ namespace soft1
             gPanel2.Clear(Color.White);
             panel2.Controls.Clear();
 
+            label3.Text = "В сезон: 0";
+            label4.Text = "В год: 0";
+
             gMapControl1.Zoom++;
             gMapControl1.Zoom--;
 
@@ -223,6 +226,8 @@ namespace soft1
 
                 double range = (maxValue - minValue) / colorList.Count;
 
+                double sumSezon = 0;
+
                 plusX = 0;
                 for (double x = CalculationModule.firstPos.Lat; x > CalculationModule.lastPos.Lat; x = x + incrementX)
                 {
@@ -282,6 +287,7 @@ namespace soft1
                             firstpos = y;
                         }
 
+                        sumSezon += calcData[plusX][plusY];
                         plusY++;
                     }
 
@@ -335,7 +341,10 @@ namespace soft1
                     incrementDraw += 25;
                 }
 
+                sumSezon = Math.Round(sumSezon * Math.Pow(Convert.ToDouble(CalculationModule.calcRangeMetr) / 1000, 2) / 1000, 4);
 
+                label3.Text = "В сезон: " + sumSezon.ToString() + " мг/дм^3";
+                label4.Text = "В год: " + Math.Round((sumSezon * 365) / 120, 4).ToString() + " мг/дм^3";
 
                 gMapControl1.Zoom++;
                 gMapControl1.Zoom--;
@@ -548,7 +557,7 @@ namespace soft1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //ExcelHelper.SaveMap(gMapControl1.ToImage());
+            ExcelHelper.SaveMap(gMapControl1.ToImage());
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -574,8 +583,11 @@ namespace soft1
                 button2.Visible = true;
                 button3.Visible = true;
                 button6.Visible = true;
+                button7.Visible = false;
                 panel2.Visible = true;
                 dataGridView1.Visible = false;
+                label3.Visible = true;
+                label4.Visible = true;
             }
             else
             {
@@ -583,8 +595,11 @@ namespace soft1
                 button2.Visible = false;
                 button3.Visible = false;
                 button6.Visible = false;
+                button7.Visible = true;
                 panel2.Visible = false;
                 dataGridView1.Visible = true;
+                label3.Visible = false;
+                label4.Visible = false;
 
                 foreach (var items in gMapControl1.Overlays)
                 {
@@ -762,11 +777,12 @@ namespace soft1
                                     for (int j = 1; j <= column; j++)
                                     {
                                         string commandAnalyzes = vremCommandAnalyzes;
-                                        object[] bufData = new object[3];
                                         if (bufColumn[j - 1] != "Point" && bufColumn[j - 1] != "Lng" && bufColumn[j - 1] != "Lat")
                                         {
                                             commandAnalyzes += "'" + bufColumn[j - 1] + "'" + "," + data[i, j].ToString().Replace(",", ".") + ")";
                                             Exception ex = sqlH.WriteCommand(commandAnalyzes);
+
+                                            object[] bufData = new object[3];
                                             bufData[0] = bufPoin;
                                             bufData[1] = bufColumn[j - 1];
                                             bufData[2] = data[i, j];

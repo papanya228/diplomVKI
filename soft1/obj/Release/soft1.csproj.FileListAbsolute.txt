@@ -27,3 +27,9 @@ F:\диплом\soft\soft1\soft1\obj\Release\soft1.csproj.CoreCompileInputs.cach
 F:\диплом\soft\soft1\soft1\obj\Release\soft1.csproj.CopyComplete
 F:\диплом\soft\soft1\soft1\obj\Release\soft1.exe
 F:\диплом\soft\soft1\soft1\obj\Release\soft1.pdb
+F:\диплом\soft\soft1\soft1\bin\Release\ExcelDataReader.DataSet.dll
+F:\диплом\soft\soft1\soft1\bin\Release\ExcelDataReader.dll
+F:\диплом\soft\soft1\soft1\bin\Release\ExcelDataReader.pdb
+F:\диплом\soft\soft1\soft1\bin\Release\ExcelDataReader.xml
+F:\диплом\soft\soft1\soft1\bin\Release\ExcelDataReader.DataSet.pdb
+F:\диплом\soft\soft1\soft1\bin\Release\ExcelDataReader.DataSet.xml

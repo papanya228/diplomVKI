@@ -33,3 +33,4 @@ F:\диплом\soft\soft1\soft1\bin\Debug\ExcelDataReader.pdb
 F:\диплом\soft\soft1\soft1\bin\Debug\ExcelDataReader.xml
 F:\диплом\soft\soft1\soft1\bin\Debug\ExcelDataReader.DataSet.pdb
 F:\диплом\soft\soft1\soft1\bin\Debug\ExcelDataReader.DataSet.xml
+F:\диплом\soft\soft1\soft1\obj\Debug\soft1.MainMenu.resources

@@ -100,22 +100,6 @@ namespace soft1
 
                 }
 
-
-                //Подумать какой больше
-                /*int countX = 0;
-                for (double x = firstPos.Lat; x > lastPos.Lat; x = x + incrementX)
-                {
-                    countX++;
-                }
-
-                int countY = 0;
-                for (double y = firstPos.Lng; y < lastPos.Lng; y = y + incrementY)
-                {
-                    countY++;
-                }*/
-
-                /*double[,] res = new double[countX, countY];*/
-
                 List<List<double>> res = new List<List<double>>();
 
                 int numberX = 0;
