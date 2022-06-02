@@ -16,6 +16,9 @@ namespace soft1
         public static GMap.NET.PointLatLng lastPos = new GMap.NET.PointLatLng(55.9677, 93.1586);
         public static int calcRangeMetr = 100;
 
+        //На входе 4 параметра: Широта, долгота точки A(От которой считаем расстояние); Широта, Долгота точки B(До которой считаем расстояние)
+        //На выходе растояние от точки A до точки B в формате double в !!!!!!МЕТРАХ!!!!!!
+        //Не перепутай lat(Широту) и lng(Долготу), lat(Широта) скорее всего меньше чем lng(Долгота)
         public static double calculateTheDistance(double latA, double lngA, double latB, double lngB)
         {
             //Радиус земли
@@ -27,6 +30,11 @@ namespace soft1
             double lat2 = latB * Math.PI / 180;
             double lng2 = lngB * Math.PI / 180;
 
+            //double dy = lat2 - lat1;
+            //double dx = Math.Cos(Math.PI / 180 * lat1) * (lng2 - lng1);
+            //double angel = Math.Atan2(dy, dx);
+            //double gAngel = angel * 180 / Math.PI;
+
             // косинусы и синусы широт и разницы долгот
             double cl1 = Math.Cos(lat1);
             double cl2 = Math.Cos(lat2);
@@ -35,6 +43,9 @@ namespace soft1
             double delta = lng2 - lng1;
             double cdelta = Math.Cos(delta);
             double sdelta = Math.Sin(delta);
+
+            //double angel = Math.Atan2(cl1 * sdelta, cl1 * sl2 - sl1 * cl2 * cdelta);
+            //double gAngel = angel * 180 / Math.PI;
 
             // вычисления длины большого круга
             double y = Math.Sqrt(Math.Pow(cl1 * sdelta, 2) + Math.Pow(cl1 * sl2- sl1 * cl2 * cdelta, 2));
@@ -113,7 +124,8 @@ namespace soft1
                         for (int i = 0; i < table.Rows.Count; i++)
                         {
                             //int rBuf = calculateTheDistance(x, y, Convert.ToDouble(bufferData["lat", i].Value), Convert.ToDouble(bufferData["lng", i].Value));
-                            double r = calculateTheDistance(x, y, Convert.ToDouble(table.Rows[i]["lat"]), Convert.ToDouble(table.Rows[i]["lng"])) / 1000;
+                            //double r = calculateTheDistance(x, y, Convert.ToDouble(table.Rows[i]["lat"]), Convert.ToDouble(table.Rows[i]["lng"])) / 1000;
+                            double r = calculateTheDistance(Convert.ToDouble(table.Rows[i]["lat"]), Convert.ToDouble(table.Rows[i]["lng"]), x, y) / 1000;
                             qq1 = qq1 + (Convert.ToDouble(table.Rows[i]["value"]) / Math.Pow(r, 2));
                             qq2 = qq2 + (1 / Math.Pow(r, 2));
                         }

@@ -39,7 +39,7 @@ namespace soft1
         {
             gMapControl1.Bearing = 0;
             gMapControl1.ShowCenter = false;
-            gMapControl1.MapProvider = GMapProviders.GoogleMap;
+            gMapControl1.MapProvider = GMapProviders.GoogleSatelliteMap;
             //GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
             gMapControl1.DragButton = MouseButtons.Left;
             gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
@@ -449,7 +449,7 @@ namespace soft1
 
         private void gMapControl1_OnMarkerClick(GMapMarker item, MouseEventArgs e)
         {
-            if(checkBox1.Checked == true)
+            if (checkBox1.Checked == true)
             {
                 selectMarker(item);
             }
@@ -744,6 +744,7 @@ namespace soft1
 
                             if (dataStorageAnalyzes.Columns.Count == 0)
                             {
+                                dataStorageAnalyzes.Columns.Add("Id", "Id");
                                 dataStorageAnalyzes.Columns.Add("Point", "Point");
                                 dataStorageAnalyzes.Columns.Add("Element", "Element");
                                 dataStorageAnalyzes.Columns.Add("Analyz", "Analyz");
@@ -782,10 +783,11 @@ namespace soft1
                                             commandAnalyzes += "'" + bufColumn[j - 1] + "'" + "," + data[i, j].ToString().Replace(",", ".") + ")";
                                             Exception ex = sqlH.WriteCommand(commandAnalyzes);
 
-                                            object[] bufData = new object[3];
-                                            bufData[0] = bufPoin;
-                                            bufData[1] = bufColumn[j - 1];
-                                            bufData[2] = data[i, j];
+                                            object[] bufData = new object[4];
+                                            bufData[0] = 0;
+                                            bufData[1] = bufPoin;
+                                            bufData[2] = bufColumn[j - 1];
+                                            bufData[3] = data[i, j];
                                             dataStorageAnalyzes.Rows.Add(bufData);
 
                                         }
@@ -793,12 +795,10 @@ namespace soft1
                                     }
                                 }
 
-                                getElements();
-
 
                             }
 
-
+                            getElements();
                         }
                         else
                         {
